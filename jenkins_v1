@@ -3,7 +3,9 @@ pipeline {
     stages {
         stage('Clone Git') {
             steps {
-                git 'git@github.com:aashishvaswani/SPE.git'
+                git branch: 'main', 
+                    credentialsId: 'github-ssh',  // Use correct Jenkins credentials ID
+                    url: 'git@github.com:aashishvaswani/SPE.git'
             }
         }
         stage('Build Code') {
@@ -12,10 +14,10 @@ pipeline {
                 sh "./Prog1.py"
             }
         }
-     stage('Test Code') {
+        stage('Test Code') {
             steps {
                 sh "chmod u+x Test2.py"
-                sh "./Test.py"
+                sh "./Test2.py"  // Fixed the filename (was "Test.py" but should be "Test2.py" for consistency)
             }
         }
     } 
